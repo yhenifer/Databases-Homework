@@ -1,3 +1,7 @@
+drop table if exists bookings;
+drop table if exists hotels;
+drop table if exists customers;
+
 CREATE TABLE customers (
   id       SERIAL PRIMARY KEY,
   name     VARCHAR(30) NOT NULL,
@@ -23,7 +27,6 @@ CREATE TABLE bookings (
   nights        INT NOT NULL
 );
 
-
 INSERT INTO customers (name, email, address, city, postcode, country) VALUES ('John Smith','j.smith@johnsmith.org','11 New Road','Liverpool','L10 2AB','UK');
 INSERT INTO customers (name, email, address, city, postcode, country) VALUES ('Sue Jones','s.jones1234@gmail.com','120 Old Street','London','N10 3CD','UK');
 INSERT INTO customers (name, email, address, city, postcode, country) VALUES ('Alice Evans','alice.evans001@hotmail.com','3 High Road','Manchester','m13 4ef','UK');
@@ -35,7 +38,6 @@ INSERT INTO customers (name, email, address, city, postcode, country) VALUES ('M
 INSERT INTO customers (name, email, address, city, postcode, country) VALUES ('Laurence Lebihan','laurence.lebihan@xmzx.net','12, rue des Bouchers','Marseille','13008','France');
 INSERT INTO customers (name, email, address, city, postcode, country) VALUES ('Keith Stewart','keith.stewart@gmail.com','84 Town Lane','Tadworth','td5 7ng','UK');
 
-INSERT INTO hotels (name, rooms, postcode) VALUES ('Triple Point Hotel', 10, 'CM194JS');
 INSERT INTO hotels (name, rooms, postcode) VALUES ('Golden Cavern Resort', 10, 'L10ABC');
 INSERT INTO hotels (name, rooms, postcode) VALUES ('Elder Lake Hotel', 5, 'L10ABC');
 INSERT INTO hotels (name, rooms, postcode) VALUES ('Pleasant Mountain Hotel', 7, 'ABCDE1');
@@ -44,12 +46,7 @@ INSERT INTO hotels (name, rooms, postcode) VALUES ('Jade Peaks Hotel', 4, 'DGQ12
 INSERT INTO hotels (name, rooms, postcode) VALUES ('Elegant Resort', 14, 'DGQ127');
 INSERT INTO hotels (name, rooms, postcode) VALUES ('Cozy Hotel', 20, 'AYD189');
 INSERT INTO hotels (name, rooms, postcode) VALUES ('Snowy Echo Motel', 15, 'AYD189');
-INSERT INTO hotels (name, rooms, postcode) VALUES ('The Royal Cosmos Hotel', 5, 'TR209AX');
-INSERT INTO hotels (name, rooms, postcode) VALUES ('The Pacific Petal Motell', 15, 'BN180TG');
 
-/* The Triple Point Hotel has 10 rooms, its postcode is CM194JS
-The Royal Cosmos Hotel has 5 rooms, its postcode is TR209AX
-The Pacific Petal Motel has 15 rooms, its postcode is BN180TG*/
 INSERT INTO bookings (customer_id, hotel_id, checkin_date, nights) VALUES (1, 1, '2019-10-01', 2);
 INSERT INTO bookings (customer_id, hotel_id, checkin_date, nights) VALUES (1, 1, '2019-12-10', 6);
 INSERT INTO bookings (customer_id, hotel_id, checkin_date, nights) VALUES (1, 3, '2019-07-20', 4);
@@ -65,13 +62,14 @@ INSERT INTO bookings (customer_id, hotel_id, checkin_date, nights) VALUES (8, 4,
 INSERT INTO bookings (customer_id, hotel_id, checkin_date, nights) VALUES (8, 5, '2020-01-03', 7);
 INSERT INTO bookings (customer_id, hotel_id, checkin_date, nights) VALUES (8, 8, '2019-12-25', 4);
 
-SELECT * FROM bookings;
-SELECT * FROM hotels;
-SELECT * FROM customers;
-SELECT name,address FROM customers;
-SELECT * FROM hotels WHERE rooms > 7;
-SELECT name,address FROM customers WHERE id = 1;
-SELECT * FROM bookings WHERE checkin_date > '2019/10/01';
-SELECT * FROM bookings WHERE checkin_date > '2019/10/01' AND nights >= 2;
-SELECT * FROM hotels WHERE postcode = 'CM194JS' OR postcode = 'TR209AX';
-
+SELECT * FROM customers WHERE name = 'Laurence Lebihan';
+SELECT * FROM customers WHERE country = 'UK';
+SELECT address, city, postcode FROM customers WHERE name = 'Melinda Marsh';
+SELECT * FROM hotels WHERE postcode = 'DGQ127';
+SELECT * FROM hotels WHERE rooms > 11;
+SELECT * FROM hotels WHERE rooms > 6 AND rooms < 15;
+SELECT * FROM hotels WHERE rooms = 10 OR rooms = 20;
+SELECT * FROM bookings WHERE customer_id = 1;
+SELECT * FROM bookings WHERE nights > 4;
+SELECT * FROM bookings WHERE checkin_date > '2020/01/01';
+SELECT * FROM bookings WHERE checkin_date > '2020/01/01' AND nights < 4;
