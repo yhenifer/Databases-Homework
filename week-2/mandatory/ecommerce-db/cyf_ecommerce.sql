@@ -103,3 +103,61 @@ INSERT INTO order_items (order_id, product_id, quantity) VALUES(8, 5, 1);
 INSERT INTO order_items (order_id, product_id, quantity) VALUES(9, 13, 2);
 INSERT INTO order_items (order_id, product_id, quantity) VALUES(10, 14, 1);
 INSERT INTO order_items (order_id, product_id, quantity) VALUES(10, 6, 5);
+
+SELECT * from customers;
+SELECT * from suppliers;
+SELECT * from products;
+SELECT * from orders;
+SELECT * from order_items;
+
+
+--Exercise1
+SELECT * from customers where country ='United States';
+
+--Exercise2
+SELECT name FROM customers ORDER BY name ASC;
+
+--Exercise3
+SELECT product_name,supplier_id FROM products WHERE unit_price > 100;
+
+--Exercise4
+SELECT product_name FROM products WHERE product_name like '%socks%';
+
+--Exercise5
+SELECT unit_price FROM products  ORDER BY unit_price DESC FETCH FIRST 5 ROWS ONLY;
+
+--Exercise6
+SELECT product_name, unit_price, supplier_name FROM products AS p INNER JOIN suppliers AS s ON s.id=p.supplier_id;
+
+--Exercise7
+SELECT product_name, supplier_name FROM products AS p INNER JOIN suppliers AS s ON s.id=p.supplier_id WHERE s.country='United Kingdom';
+
+--Exercise8
+SELECT order_reference FROM orders WHERE customer_id = 1;
+
+--Exercise9
+SELECT * FROM orders AS o INNER JOIN customers AS c ON c.id=o.customer_id WHERE c.name='Hope Crosby';
+
+--Exercise10
+SELECT product_name, unit_price, quantity
+FROM products AS p
+INNER JOIN order_items AS i ON p.id=i.product_id
+INNER JOIN orders AS o ON o.id=i.order_id
+WHERE o.order_reference='ORD006';
+
+--Exercise11
+SELECT name, order_reference, order_date, product_name, supplier_name, quantity
+FROM customers AS c
+INNER JOIN orders AS o ON c.id=o.customer_id
+INNER JOIN order_items AS i ON o.id=i.order_id
+INNER JOIN products AS p ON p.id=i.product_id
+INNER JOIN suppliers AS s ON s.id=p.supplier_id;
+
+--Exercise12
+SELECT name
+FROM customers AS c
+INNER JOIN orders AS o ON c.id=o.customer_id
+INNER JOIN order_items AS i ON o.id=i.order_id
+INNER JOIN products AS p ON p.id=i.product_id
+INNER JOIN suppliers AS s ON s.id=p.supplier_id
+WHERE s.country='China';
